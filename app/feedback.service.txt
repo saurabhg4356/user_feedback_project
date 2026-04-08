@@ -1,0 +1,14 @@
+[Unit]
+Description=Feedback Flask API
+After=network.target
+
+[Service]
+User=ec2-user
+WorkingDirectory=/opt/feedback-api
+Environment="AWS_REGION=ap-south-1"
+Environment="DYNAMODB_TABLE=feedback-table"
+ExecStart=/usr/local/bin/gunicorn --bind 0.0.0.0:5000 app:app
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
